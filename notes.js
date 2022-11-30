@@ -6,13 +6,20 @@ const fs = require('fs')
  const addNote = function (title,body){
 
     const notes = loadNote()
-    notes.push({
-        title: title,
-        body: body
+    const duplicateNotes = notes.filter(function (notes){
+        return notes.title === title
     })
-     saveNote(notes)
 
-
+     if(duplicateNotes.length===0){
+         notes.push({
+             title: title,
+             body: body
+         })
+         saveNote(notes)
+         console.log('New Note Added !!')
+     }else{
+         console.log('Already Exist !!')
+     }
 
  }
  const saveNote = function (notes){
